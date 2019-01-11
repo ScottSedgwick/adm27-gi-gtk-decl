@@ -24,7 +24,7 @@ mkEditRow m label evt l = bin ListBoxRow []
 mkRow :: FromWidget (Bin ListBoxRow) target => Text -> Event -> target Event
 mkRow label evt = bin ListBoxRow [] 
                 $ container Box []
-                [ widget Button [ #label := label, on #clicked evt ]
+                [ widget Button [ #label := label, on #clicked evt, classes ["big-button"] ]
                 ]
 
 view' :: Model -> AppView Window Event

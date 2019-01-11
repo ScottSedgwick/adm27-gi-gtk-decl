@@ -21,6 +21,9 @@ description:         Please see the README on GitHub at <https://github.com/Scot
 
 dependencies:
 - base >= 4.7 && < 5
+- async
+- bytestring
+- gi-gdk
 - gi-gtk
 - gi-gtk-declarative
 - gi-gtk-declarative-app-simple
