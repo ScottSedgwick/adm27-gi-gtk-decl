@@ -1,0 +1,58 @@
+name:                adm27-gtk
+version:             0.1.0.0
+github:              "ScottSedgwick/adm27-gtk"
+license:             BSD3
+author:              "Scott Sedgwick"
+maintainer:          "ssedgwick@cochlear.com"
+copyright:           "Copyright 2019"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Package category
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/ScottSedgwick/adm27-gtk#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- gi-gtk
+- gi-gtk-declarative
+- gi-gtk-declarative-app-simple
+- haskell-gi-base
+- microlens
+- microlens-th
+- text
+- vector
+
+library:
+  source-dirs: src
+
+executables:
+  adm27:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    - -Wall
+    dependencies:
+    - adm27-gtk
+
+tests:
+  adm27-gtk-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    - -Wall
+    dependencies:
+    - adm27-gtk
