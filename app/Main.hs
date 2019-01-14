@@ -9,13 +9,16 @@ import qualified GI.Gdk                        as Gdk
 import qualified GI.Gtk                        as Gtk
 import           GI.Gtk.Declarative.App.Simple
 
-import           Model                         (Model(..), Form(..))
+import           Database
+
+import           Model                         
 import           View                          (view')
 import           Update                        (update')
 
 initState :: Model
 initState = Model { _form = FormMain 
-                  , _guideName = "Zoe"
+                  , _currentGuide = emptyGuide
+                  , _guides = []
                   }
 
 styles :: ByteString
@@ -42,10 +45,15 @@ main = do
     p
     (fromIntegral Gtk.STYLE_PROVIDER_PRIORITY_USER)
 
+  -- Load initial data set
+  initGuides <- getAll fromGuides 
+  -- initGuardians <- withSQLite database $ select fromGuardians
+  -- initGuideEvents <- withSQLite database $ select fromGuideEvents
+  let app = App {view = view', update = update', inputs = [], initialState = initState { _guides = initGuides } }
+
   -- Start main loop
   void . async $ do
     void $ runLoop app
     Gtk.mainQuit
   Gtk.main
- where
-  app = App {view = view', update = update', inputs = [], initialState = initState}
+  

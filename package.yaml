@@ -30,6 +30,8 @@ dependencies:
 - haskell-gi-base
 - microlens
 - microlens-th
+- selda
+- selda-sqlite
 - text
 - vector
 

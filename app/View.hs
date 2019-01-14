@@ -45,7 +45,7 @@ mainForm _ = bin ScrolledWindow [] $ container ListBox []
       
 guideForm :: FromWidget (Bin ScrolledWindow) target => Model -> target Event
 guideForm m = bin ScrolledWindow [] $ container ListBox []
-  [ mkEditRow m "GuideName" ChangeText guideName
+  [ mkEditRow m "GuideName" ChangeText (currentGuide . guide_name)
   , mkRow "Back To Main" (GotoForm form FormMain) 
   ]
     
