@@ -1,27 +1,42 @@
 {-# LANGUAGE FlexibleContexts  #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE OverloadedLabels  #-}
 module Database where
 
+import           Data.Hashable                 (hash)
+import qualified Data.IntMap                   as M
 import           Database.Selda
 import           Database.Selda.SQLite
 
-import           Model    
+import           Model 
 
+-- | Database filename
 database :: FilePath
 database = "data/adm27.db"
 
-fromGuides :: Table Guide
-fromGuides = table "Guides" []
+-- | Database structure
+tblGuides :: Table Guide
+tblGuides = table "Guides" [#_guide_id :- primary]
 
-fromGuardians :: Table Guardian
-fromGuardians = table "Guardians" []
+tblGuardians :: Table Guardian
+tblGuardians = table "Guardians" [#_guardian_id :- primary]
 
-fromGuideEvents :: Table GuideEvent
-fromGuideEvents = table "GuideEvents" []
+tblGuideEvents :: Table GuideEvent
+tblGuideEvents = table "GuideEvents" [#_event_id :- primary]
 
--- getAll :: (MonadIO m, MonadMask m, SqlRow a, Generic a, Result a) => Table a -> m [a]
-getAll fromTable = withSQLite database $ query $ select fromTable
+-- | Database initialisation and reading
+initDb :: IO (M.IntMap Guide, M.IntMap Guardian, M.IntMap GuideEvent)
+initDb = withSQLite database $ do
+  tryCreateTable tblGuides
+  tryCreateTable tblGuardians
+  tryCreateTable tblGuideEvents
 
--- withSQLite :: (MonadIO m, MonadMask m) => FilePath -> SeldaT m a -> m a
--- query :: (MonadSelda m, Result a) => Query s a -> m [Res a]
--- select :: Relational a => Table a -> Query s (Row s a)
+  qryGuides    <- query $ select tblGuides
+  qryGuardians <- query $ select tblGuardians
+  qryEvents    <- query $ select tblGuideEvents
+
+  let initGuides    = M.fromList $ map (\x -> (hash x, x)) qryGuides
+  let initGuardians = M.fromList $ map (\x -> (hash x, x)) qryGuardians
+  let initEvents    = M.fromList $ map (\x -> (hash x, x)) qryEvents
+
+  return (initGuides, initGuardians, initEvents)

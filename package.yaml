@@ -23,16 +23,19 @@ dependencies:
 - base >= 4.7 && < 5
 - async
 - bytestring
+- containers
 - gi-gdk
 - gi-gtk
 - gi-gtk-declarative
 - gi-gtk-declarative-app-simple
+- hashable
 - haskell-gi-base
 - microlens
 - microlens-th
 - selda
 - selda-sqlite
 - text
+- time
 - vector
 
 library:
