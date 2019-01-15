@@ -1,3 +1,4 @@
 .stack-work/
 adm27-gtk.cabal
 *~
+data/adm27.db
