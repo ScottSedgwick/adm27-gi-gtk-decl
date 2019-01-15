@@ -1,14 +1,14 @@
 {-# LANGUAGE FlexibleContexts  #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE OverloadedLabels  #-}
-module Database where
+module Adm27.Database where
 
 import           Data.Hashable                 (hash)
 import qualified Data.IntMap                   as M
 import           Database.Selda
 import           Database.Selda.SQLite
 
-import           Model 
+import           Adm27.Model 
 
 -- | Database filename
 database :: FilePath

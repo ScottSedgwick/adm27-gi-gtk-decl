@@ -10,7 +10,8 @@ import qualified GI.Gdk                        as Gdk
 import qualified GI.Gtk                        as Gtk
 import           GI.Gtk.Declarative.App.Simple
 
-import           Database
+import           Adm27.Model
+import           Adm27.Database
 
 import           Model                         
 import           View                          (view')

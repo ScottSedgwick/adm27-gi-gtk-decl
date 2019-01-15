@@ -15,9 +15,10 @@ import           Data.Text                     (Text)
 import           Data.Time.Calendar            (Day(..), toGregorian, fromGregorian)
 import           Lens.Micro
 
-import           Model                         
+import           Model              
+import           Adm27.Model           
 
--- A row is 39 high
+-- An edit row and button row are each 39 high
 
 mkEditRow :: FromWidget (Bin ListBoxRow) target => Model -> Text -> (Lens' Model Text -> Text -> Event) -> Lens' Model Text -> target Event
 mkEditRow m label evt l = bin ListBoxRow [] 
@@ -44,6 +45,7 @@ snd3 (_,y,_) = y
 thd3 :: (a,b,c) -> c
 thd3 (_,_,z) = z
 
+-- This is less, not sure how much exactly
 mkBoolRow :: FromWidget (Bin ListBoxRow) target => Model -> Text -> (Lens' Model Bool -> Bool -> Event) -> Lens' Model Bool -> target Event 
 mkBoolRow m label evt l = bin ListBoxRow [] 
                         $ container Box []
@@ -54,6 +56,7 @@ mkBoolRow m label evt l = bin ListBoxRow []
                                              ]
                         ]
 
+-- This is much more, not sure exactly how much
 mkDateRow :: FromWidget (Bin ListBoxRow) target => Model -> Text -> (Lens' Model Day -> Day -> Event) -> Lens' Model Day -> target Event 
 mkDateRow m label evt l = bin ListBoxRow [] 
                         $ container Box []
